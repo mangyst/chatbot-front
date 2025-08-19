@@ -1,0 +1,555 @@
+*,
+*::before,
+*::after {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Сброс отступов и базовый фон */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #595959;
+  overflow: hidden;
+}
+
+/* Контейнер меню */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #141414;
+  padding-top: 35px;
+  position: relative;
+}
+
+/* Кнопка Create Chat стилизованная как пункт меню */
+.create-chat-btn-as-option {
+  width: 210px;
+  height: 40px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  color: #ccc;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  --antd-wave-shadow-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.create-chat-btn-as-option:hover,
+.create-chat-btn-as-option:focus,
+.create-chat-btn-as-option:active {
+  background-color: white;
+  color: black;
+  outline: none;
+}
+
+.create-chat-btn-as-option:disabled {
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* Меню */
+.custom-menu {
+  background-color: #141414;
+  border: none !important;
+  box-shadow: none !important;
+  width: 220px;
+  padding: 0;
+}
+
+/* Пункты меню */
+.custom-menu .ant-menu-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px !important;
+  color: #ccc;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: none !important;
+  outline: none !important;
+  overflow: visible !important;
+  position: relative;
+}
+
+/* Контейнер для текста и иконки */
+.menu-item-label {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Поле ввода */
+.menu-inline-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: black;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.menu-inline-input.invalid {
+  border-color: red;
+  background-color: #fff1f0;
+}
+
+/* Трёхточечная иконка */
+.menu-item-ellipsis {
+  margin-left: 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  display: none;
+}
+
+/* Показываем троеточие только при фокусе, наведении или выборе */
+.custom-menu .ant-menu-item:hover .menu-item-ellipsis,
+.custom-menu .ant-menu-item:focus .menu-item-ellipsis,
+.custom-menu .ant-menu-item:focus-visible .menu-item-ellipsis,
+.custom-menu .ant-menu-item-selected .menu-item-ellipsis {
+  display: inline-block;
+}
+
+/* В выбранном пункте троеточие — всегда черное */
+.custom-menu .ant-menu-item-selected .menu-item-ellipsis {
+  color: black;
+}
+
+/* Не перекрашивать троеточие в selected option при hover/focus — оставить черным */
+.custom-menu .ant-menu-item-selected:hover .menu-item-ellipsis,
+.custom-menu .ant-menu-item-selected:focus .menu-item-ellipsis,
+.custom-menu .ant-menu-item-selected:focus-visible .menu-item-ellipsis {
+  color: black !important;
+}
+
+/* Для остальных пунктов — белое при hover/focus */
+.custom-menu .ant-menu-item:hover .menu-item-ellipsis,
+.custom-menu .ant-menu-item:focus .menu-item-ellipsis,
+.custom-menu .ant-menu-item:focus-visible .menu-item-ellipsis {
+  color: white;
+}
+
+/* Убираем фон у троеточия во всех состояниях */
+.menu-item-ellipsis:hover,
+.menu-item-ellipsis:focus,
+.menu-item-ellipsis:active {
+  background-color: transparent !important;
+  outline: none;
+}
+
+/* Подменю */
+.menu-item-options {
+  position: absolute;
+  right: 10px;
+  top: 100%;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 4px 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  min-width: 100px;
+}
+
+.menu-item-options button {
+  width: 100%;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.menu-item-options button:hover {
+  background-color: #333;
+}
+
+/* Выбранный пункт */
+.custom-menu .ant-menu-item-selected {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+/* Текст в выбранном пункте */
+.custom-menu .ant-menu-item-selected > .ant-menu-title-content {
+  color: black !important;
+}
+
+/* Hover и focus на выбранном пункте */
+.custom-menu .ant-menu-item-selected:hover,
+.custom-menu .ant-menu-item-selected:focus {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Общие стили фокуса */
+.custom-menu .ant-menu-item:focus,
+.custom-menu .ant-menu-item:active,
+.custom-menu .ant-menu-item:focus-visible {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Основной контейнер чата */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;       /* или 100% если родитель высотой 100% */
+  max-height: 86vh;
+  width: 100%;
+  background-color: #1f1f1f;
+  justify-content: center; /* вертикаль */
+  align-items: center;     /* горизонталь */
+}
+
+/* Обёртка всего чата и поля ввода */
+.chat-inner-wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 12px;
+  background-color: #1f1f1f;
+  overflow: hidden;
+}
+
+
+/* Блок с сообщениями */
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+.messages::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+/* Контейнер каждого сообщения */
+.message {
+  display: flex;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* Сообщение пользователя справа */
+.message.user {
+  justify-content: flex-end;
+}
+
+/* Сообщение бота слева */
+.message.bot {
+  justify-content: flex-start;
+}
+
+/* Контент сообщения */
+.message-content {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 18px; /* Скруглённые углы по умолчанию */
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Стили для бота */
+.message.bot .message-content {
+  background-color: #444;
+  color: #eee;
+  /* Сделаем углы скруглёнными, без прямых */
+  border-top-left-radius: 18px;
+}
+
+/* Стили для пользователя */
+.message.user .message-content {
+  background-color: white; /* фон белый */
+  color: black;            /* текст чёрный */
+  /* Сделаем углы скруглёнными, без прямых */
+  border-top-right-radius: 18px;
+}
+
+
+
+
+
+
+
+/* Обёртка нижней части с input */
+.input-area-wrapper {
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Обёртка input + кнопки */
+.input-area {
+  position: relative;
+  width: 100%;
+  padding: 2px; /* отступы вокруг input */
+  box-sizing: border-box;
+}
+
+/* Поле ввода */
+.chat-input {
+  width: 100%;
+  height: auto;
+  padding: 12px 50px 12px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #333333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  color: #eee;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 18px;
+  resize: none;
+  overflow-y: auto;
+}
+
+.chat-input:focus {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Кнопка отправки */
+.send-button {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease;
+}
+.send-button > * {
+  width: 12px;
+  height: 18px;
+}
+.send-button:hover,
+.send-button:focus,
+.send-button:active {
+  background-color: #fff !important;
+  color: #000 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Скрытие кнопки при пустом вводе (если используешь условный класс) */
+.send-button-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Счётчик символов */
+.char-count {
+  position: absolute;
+  bottom: 6px;
+  right: 56px;
+  font-size: 12px;
+  color: #888;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Обертка спиннера */
+.global-spinner {
+  position: fixed;
+  z-index: 9999;
+  background-color: #141414;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+/* Скрытие спиннера */
+.global-spinner-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Перекрашиваем иконку спиннера в белый */
+.global-spinner .ant-spin-dot i {
+  background-color: #fff !important;
+}
+
+/* Для спиннера с иконкой */
+.global-spinner .ant-spin-dot {
+  color: #fff !important;
+}
+
+.typing-indicator span {
+  animation: blink 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+
+.overlay-btn {
+  font-family: inherit;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #2a2a2a;
+  color: #ddd;
+  border: 1px solid #3a3a3a;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.overlay-btn.delete {
+  background: #d9363e;
+  border-color: #a61d24;
+  color: #fff;
+}
+
+/* hover для кнопки Отмена */
+.overlay-btn:hover {
+  background: #3a3a3a;
+  border-color: #4a4a4a;
+  color: #fff;
+}
+
+/* hover для кнопки Удалить */
+.overlay-btn.delete:hover {
+  background: #e84c54;
+  border-color: #c0392b;
+}
+
+
+/* Контейнер текста */
+.overlay-content {
+  background: #1f1f1f;
+  color: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 220px; /* ширина окна */
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  border: 1px solid #333;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* центрируем горизонтально */
+  text-align: center; /* центрируем текст */
+}
+
+/* Заголовок */
+.overlay-content .title {
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Контейнер кнопок */
+.overlay-content .buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center; /* центрируем кнопки */
+  padding: 14px 16px;
+}
+
+
+
+.scroll-to-bottom {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.05); /* прозрачность фона, уменьшай цифру чтобы сделать менее яркой */
+  border: 2px solid rgba(255, 255, 255, 0.3); /* прозрачность границы */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background-color 0.2s, transform 0.2s, opacity 0.3s;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-to-bottom.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-to-bottom:hover {
+   background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%) scale(1.05);
+}
+
+.scroll-to-bottom .arrow {
+  font-size: 18px;
+  color: white;
+}
+
