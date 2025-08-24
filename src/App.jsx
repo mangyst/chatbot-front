@@ -5,7 +5,7 @@ import SidebarMenu from './components/SidebarMenu';
 import ChatWindow from './components/ChatWindow';
 import { apiRequest } from './api';
 import { useErrorStore } from './errorStore';
-import './index.css';
+
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;

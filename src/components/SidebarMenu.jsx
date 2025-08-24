@@ -3,7 +3,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { createPortal } from 'react-dom';
 import { apiRequest } from '../api';
-import '../index.css';
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -55,7 +55,6 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
   const [editingName, setEditingName] = useState('');
   const [isValidName, setIsValidName] = useState(true);
   const [focusedKey, setFocusedKey] = useState(null);
-
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmTargetKey, setConfirmTargetKey] = useState(null);
 
@@ -71,9 +70,7 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
     } catch {}
   };
 
-  useEffect(() => {
-    fetchDialogs();
-  }, []);
+  useEffect(() => { fetchDialogs(); }, []);
 
   useEffect(() => {
     const items = dialogs.map(dialog => ({
@@ -103,9 +100,7 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
 
   useEffect(() => {
     if (!confirmOpen) return;
-    const onKey = (e) => {
-      if (e.key === 'Escape') setConfirmOpen(false);
-    };
+    const onKey = (e) => { if (e.key === 'Escape') setConfirmOpen(false); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [confirmOpen]);
@@ -224,6 +219,13 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
   const handleFocus = (key) => setFocusedKey(key);
   const handleBlur = () => setFocusedKey(null);
 
+  const menuDropdown = (key, label) => (
+    <Menu>
+      <Menu.Item key="Rename" onClick={() => handleRename(key, label)}>Rename</Menu.Item>
+      <Menu.Item key="Delete" onClick={() => openConfirm(key)}>Delete</Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className="menu-container">
       <OverlayConfirm
@@ -248,16 +250,18 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
         items={menuItems.map(item => ({
           key: item.key,
           label: editingKey === item.key ? (
-            <input
-              className={`menu-inline-input ${!isValidName ? 'invalid' : ''}`}
-              value={editingName}
-              onChange={handleNameChange}
-              onBlur={finishEditing}
-              onKeyDown={handleKeyDown}
-              autoFocus
-              maxLength={20}
-              spellCheck={false}
-            />
+            <div className="menu-inline-wrapper">
+              <input
+                className={`menu-inline-input ${!isValidName ? 'invalid' : ''}`}
+                value={editingName}
+                onChange={handleNameChange}
+                onBlur={finishEditing}
+                onKeyDown={handleKeyDown}
+                autoFocus
+                maxLength={15}
+                spellCheck={false}
+              />
+            </div>
           ) : (
             <div
               className="menu-item-label"
@@ -269,16 +273,7 @@ const SidebarMenu = ({ user, onSelectDialog }) => {
                 {item.label}
               </span>
               <Dropdown
-                overlay={
-                  <Menu>
-                    <Menu.Item key="Rename" onClick={() => handleRename(item.key, item.label)}>
-                      Rename
-                    </Menu.Item>
-                    <Menu.Item key="Delete" onClick={() => openConfirm(item.key)}>
-                      Delete
-                    </Menu.Item>
-                  </Menu>
-                }
+                overlay={menuDropdown(item.key, item.label)}
                 trigger={['click']}
                 placement="bottomRight"
               >
