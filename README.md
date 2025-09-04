@@ -60,12 +60,6 @@
       </a>
       <br><h4>Google OAuth</h4>
     </td>
-    <td align="center" width="90">
-      <a href="https://zustand-demo.pmnd.rs/" target="_blank">
-        <img alt="Zustand" width="45" height="45" src="https://raw.githubusercontent.com/pmndrs/zustand/main/bear.png" />
-      </a>
-      <br><h4>Zustand</h4>
-    </td>
   </tr>
 </table>
 
