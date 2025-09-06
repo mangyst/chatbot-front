@@ -15,7 +15,6 @@
 - 🛠️ Контейнеризация через **Docker / Docker Compose**  
 - ☁️ Работает в связке с **Backend** и **Nginx**  
   - **Backend**: https://github.com/mangyst/chatbot-backend  
-  - **Nginx**: https://github.com/mangyst  
 
 ---
 
@@ -69,6 +68,10 @@
         <a href="https://www.docker.com/" target="_blank"><img alt="Docker" width="45" height="45" style="padding:10px;" src="https://raw.githubusercontent.com/HighAmbition211/HighAmbition211/auxiliary/tools/docker.svg" /></a>
         <br><h4>Docker</h4>
     </td>
+  <td align="center" width="90">
+        <a href="https://www.nginx.com/" target="_blank"><img alt="Nginx" width="45" height="45" style="padding:10px;" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nginx/nginx-original.svg" /></a>
+        <br><h4>Nginx</h4>
+  </td>
 </table>
 
 ---
